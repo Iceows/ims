@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.*
 import android.net.eap.EapSessionConfig
 import android.net.ipsec.ike.*
+import android.os.Build.VERSION_CODES
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -30,6 +31,15 @@ import javax.xml.parsers.DocumentBuilder
 import javax.xml.parsers.DocumentBuilderFactory
 import kotlin.concurrent.thread
 import kotlin.random.Random
+import kotlin.system.exitProcess
+import android.telephony.SubscriptionInfo
+import android.os.Build.VERSION_CODES.LOLLIPOP_MR1
+
+
+
+
+
+
 
 fun String.toMD5(): String {
     val bytes = MessageDigest.getInstance("MD5").digest(this.toByteArray())
@@ -356,6 +366,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("HardwareIds", "MissingPermission")
     fun launchIms(network: Network) {
         updateStatus("Got IMS network. Launching SIP")
+        Log.d("PHH", "Got IMS network. Launching SIP")
 
         val ipsecManager = getSystemService(IpSecManager::class.java)
         val nm = getSystemService(ConnectivityManager::class.java)
@@ -863,8 +874,8 @@ class MainActivity : AppCompatActivity() {
 
             Log.d("PHH", "End of susbcribe answer")
             
-            if(false) {
-                val targetPhoneNumber = "XXXXXXX"
+            if(true) {
+                val targetPhoneNumber = "0625911237"
 
                 val sms = encodeSms(smsc, targetPhoneNumber, "not hello")
                 val msg4 = """
@@ -916,17 +927,36 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+
     @SuppressLint("HardwareIds", "MissingPermission")
     fun launchVolteNetwork() {
         val nm = getSystemService(ConnectivityManager::class.java)
         val tm = getSystemService(TelephonyManager::class.java)
+
+        Log.d("PHH", "Requesting IMS network.")
         updateStatus("Requesting IMS network.")
 
         val sm = getSystemService(SubscriptionManager::class.java)
         val subscriptions = sm.activeSubscriptionInfoList
+
+        if (subscriptions.size == 0) {
+            updateStatus("No subscriptions available - exist")
+            Log.e("PHH", "No subscriptions available")
+            return
+        }
+
         val activeSubscription = subscriptions[0]
         val subId = activeSubscription.subscriptionId
         val imei = tm.getDeviceId(activeSubscription.simSlotIndex)
+
+        val carrierName = activeSubscription.carrierName
+        val displayName = activeSubscription.displayName
+        val mcc = activeSubscription.mcc
+        val mnc = activeSubscription.mnc
+        val subscriptionInfoNumber = activeSubscription.number
+
+        Log.d("PHH", "Found activeSubscription Id:" + subId + " displayName:" + displayName)
 
         nm.registerNetworkCallback(NetworkRequest.Builder()
             .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
@@ -938,6 +968,7 @@ class MainActivity : AppCompatActivity() {
             object : ConnectivityManager.NetworkCallback() {
                 override fun onAvailable(network: Network) {
                     updateStatus("Got IMS network.")
+                    Log.d("PHH", "Got IMS network (New).")
                     launchIms(network)
                 }
             })
