@@ -92,6 +92,7 @@ class MainActivity : AppCompatActivity() {
     var ref: IkeSession? = null
     //var na: NetworkAgent? = null
 
+    @SuppressLint("NewApi")
     fun connectIke(ctxt: Context) {
         val ipsecManager = ctxt.getSystemService(IpSecManager::class.java)
         val nm = ctxt.getSystemService(ConnectivityManager::class.java)
@@ -384,8 +385,7 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("HardwareIds", "MissingPermission")
     fun launchIms(network: Network) {
-        updateStatus("Got IMS network. Launching SIP")
-        Log.d("PHH", "Got IMS network. Launching SIP")
+        updateStatus("Launching SIP")
 
         val ipsecManager = getSystemService(IpSecManager::class.java)
         val nm = getSystemService(ConnectivityManager::class.java)
@@ -418,15 +418,15 @@ class MainActivity : AppCompatActivity() {
 
         Log.d("PHH", "realm: ${realm} - user: ${user}")
 
-        /*parcel.pcscfs = toParcelableArray(
-            lp.getPcscfServers(), IpConfigurationParcelableUtil::parcelAddress, String::class.java
-        )*/
-
-        val pcscfs = lp!!.javaClass.getMethod("getPcscfServers").invoke(lp) as List<InetAddress>
+        var pcscfs = lp!!.javaClass.getMethod("getPcscfServers").invoke(lp) as List<InetAddress>
 
         if (pcscfs.size == 0) {
-            Log.d("PHH", "no Pcscf Servers!!")
-            return
+            Log.d("PHH", "no Pcscf Servers !! - Try hardcode SFR server")
+
+            // SFR pcscfr adresse
+            var myListSFR:  List<InetAddress> =  listOf(InetAddress.getByName("2a02:8400:20:225::5"),InetAddress.getByName("2a02:8400:20:1206::5"))
+
+            pcscfs=myListSFR
         }
 
         val pcscf = pcscfs[0]
@@ -908,7 +908,8 @@ class MainActivity : AppCompatActivity() {
             Log.d("PHH", "End of susbcribe answer")
             
             if(true) {
-                val targetPhoneNumber = "0625911237"
+                // TODO targetphonenumber
+                val targetPhoneNumber = ""
 
                 val sms = encodeSms(smsc, targetPhoneNumber, "not hello")
                 val msg4 = """
