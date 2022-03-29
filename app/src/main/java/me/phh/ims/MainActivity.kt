@@ -34,6 +34,10 @@ import kotlin.random.Random
 import kotlin.system.exitProcess
 import android.telephony.SubscriptionInfo
 import android.os.Build.VERSION_CODES.LOLLIPOP_MR1
+import android.os.Build
+
+
+
 
 
 
@@ -357,11 +361,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun updateStatus(str: String) {
+        Log.d("PHH", "upd : " + str)
         runOnUiThread {
             val status = findViewById<TextView>(R.id.status)
             status.text = str + "\n" + status.text
         }
     }
+
+
+    fun supportMSim(): Boolean {
+        return Build.VERSION.SDK_INT >= LOLLIPOP_MR1
+    }
+
+    fun getSmsManager(subId: Int): SmsManager? {
+        return if (supportMSim()) {
+            SmsManager.getSmsManagerForSubscriptionId(subId)
+        } else {
+            SmsManager.getDefault()
+        }
+    }
+
 
     @SuppressLint("HardwareIds", "MissingPermission")
     fun launchIms(network: Network) {
@@ -376,8 +395,10 @@ class MainActivity : AppCompatActivity() {
         val activeSubscription = subscriptions[0]
         val subId = activeSubscription.subscriptionId
         val imei = tm.getDeviceId(activeSubscription.simSlotIndex)
-        val smsManager = getSystemService(SmsManager::class.java).createForSubscriptionId(subId)
-        val smscStr = smsManager.smscAddress
+        //val smsManager = getSystemService(SmsManager::class.java).createForSubscriptionId(subId)
+        val smsManager = getSmsManager(subId)
+
+        val smscStr = smsManager?.smscAddress
         val smscMatchRegex = Regex("([0-9]+)")
         val smsc = smscMatchRegex.find(smscStr!!)!!.groupValues[1]
 
@@ -394,7 +415,20 @@ class MainActivity : AppCompatActivity() {
         Log.d("PHH", " caps = $caps, lp = $lp")
         val realm = "ims.mnc$mnc.mcc$mcc.3gppnetwork.org"
         val user = "$imsi@ims.mnc$mnc.mcc$mcc.3gppnetwork.org"
+
+        Log.d("PHH", "realm: ${realm} - user: ${user}")
+
+        /*parcel.pcscfs = toParcelableArray(
+            lp.getPcscfServers(), IpConfigurationParcelableUtil::parcelAddress, String::class.java
+        )*/
+
         val pcscfs = lp!!.javaClass.getMethod("getPcscfServers").invoke(lp) as List<InetAddress>
+
+        if (pcscfs.size == 0) {
+            Log.d("PHH", "no Pcscf Servers!!")
+            return
+        }
+
         val pcscf = pcscfs[0]
 
         val myAddr = lp.linkAddresses[0].address.hostAddress
@@ -729,10 +763,9 @@ class MainActivity : AppCompatActivity() {
             }
 
             updateStatus("Connecting to IPsec socket")
-            Log.d("PHH", "Connecting to IPSec socket")
             socketInIpsec.connect(InetSocketAddress(pcscf!!, portS))
             updateStatus("Connected to IPsec socket")
-            Log.d("PHH", "Succeeded!")
+
 
             val ipsecWriter = socketInIpsec.getOutputStream()
             val ipsecReader = socketInIpsec.getInputStream().bufferedReader()
@@ -934,15 +967,13 @@ class MainActivity : AppCompatActivity() {
         val nm = getSystemService(ConnectivityManager::class.java)
         val tm = getSystemService(TelephonyManager::class.java)
 
-        Log.d("PHH", "Requesting IMS network.")
         updateStatus("Requesting IMS network.")
 
         val sm = getSystemService(SubscriptionManager::class.java)
         val subscriptions = sm.activeSubscriptionInfoList
 
         if (subscriptions.size == 0) {
-            updateStatus("No subscriptions available - exist")
-            Log.e("PHH", "No subscriptions available")
+            updateStatus("No subscriptions available - end")
             return
         }
 
@@ -967,8 +998,7 @@ class MainActivity : AppCompatActivity() {
             .build(),
             object : ConnectivityManager.NetworkCallback() {
                 override fun onAvailable(network: Network) {
-                    updateStatus("Got IMS network.")
-                    Log.d("PHH", "Got IMS network (New).")
+                    updateStatus("Got IMS network !!")
                     launchIms(network)
                 }
             })
