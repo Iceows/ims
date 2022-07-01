@@ -479,7 +479,7 @@ class MainActivity : AppCompatActivity() {
                             Call-ID: $callId
                             Max-Forwards: 70
                             Expires: 600000
-                            User-Agent: Xiaomi__Android_12_MIUI220114
+                            User-Agent: SIPAUA/0.1.001
                             Contact: <sip:$imsi@[$myAddr2]:${socket.localPort};transport=tcp>;expires=600000;+sip.instance="<urn:gsma:imei:$imeiStr>";+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";+g.3gpp.smsip;audio
                             Supported: path, gruu, sec-agree
                             Allow: INVITE, ACK, CANCEL, BYE, UPDATE, REFER, NOTIFY, MESSAGE, PRACK, OPTIONS
@@ -814,7 +814,7 @@ class MainActivity : AppCompatActivity() {
                             Call-ID: $callId
                             Max-Forwards: 70
                             Expires: 600000
-                            User-Agent: Xiaomi__Android_12_MIUI220114
+                            User-Agent: SIPAUA/0.1.001
                             Contact: <sip:$imsi@[$myAddr2]:${socketInIpsec.localPort};transport=tcp>;expires=600000;+sip.instance="<urn:gsma:imei:$imeiStr>";+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";+g.3gpp.smsip;audio
                             Supported: path, gruu, sec-agree
                             Allow: INVITE, ACK, CANCEL, BYE, UPDATE, REFER, NOTIFY, MESSAGE, PRACK, OPTIONS
@@ -833,12 +833,15 @@ class MainActivity : AppCompatActivity() {
             ipsecWriter.write("\r\n".toByteArray())
             ipsecWriter.write("\r\n".toByteArray())
 
-            var myPhoneNumber = ""
+            // TODO myPhoneNumber
+            var myPhoneNumber = "0625911237"
             var mySip = ""
             var svcRoute = mutableListOf<String>()
             var path = ""
             lines.clear()
+            Log.d("PHH", "Waiting....")
             for (line in ipsecReader.lines()) {
+                Log.d("PHH", "line :  " + line.trim())
                 lines.add(line.trim())
                 Log.d("PHH", "IPSEC Received < $line")
                 if (line.toLowerCase().startsWith("p-associated-uri")) {
@@ -876,7 +879,7 @@ class MainActivity : AppCompatActivity() {
                             Max-Forwards: 70
                             Expires: 600000
                             Route: $route
-                            User-Agent: XXiaomi__Android_12_MIUI220208
+                            User-Agent: SIPAUA/0.1.001
                             Contact: <sip:$imsi@[$myAddr2]:${socketInIpsec.localPort};transport=tcp>;expires=600000;+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";+g.3gpp.smsip;audio
                             Supported: path, gruu, sec-agree
                             Allow: INVITE, ACK, CANCEL, BYE, UPDATE, REFER, NOTIFY, MESSAGE, PRACK, OPTIONS
@@ -909,7 +912,7 @@ class MainActivity : AppCompatActivity() {
             
             if(true) {
                 // TODO targetphonenumber
-                val targetPhoneNumber = ""
+                val targetPhoneNumber = "+33625911237"
 
                 val sms = encodeSms(smsc, targetPhoneNumber, "not hello")
                 val msg4 = """
@@ -922,7 +925,7 @@ class MainActivity : AppCompatActivity() {
                 Content-Type: application/vnd.3gpp.sms
                 Call-ID: $callId
                 CSeq: 4 MESSAGE
-                User-Agent: Xiaomi__Android_12_MIUI220208
+                User-Agent: SIPAUA/0.1.001
                 Security-Verify: $securityServer
                 P-Preferred-Identity: <sip:$mySip>
                 Route: $route

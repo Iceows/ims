@@ -7,7 +7,6 @@ rem adb remount rw, /system
 rem adb shell mkdir /system/priv-app/PhhIMS
 rem adb push PhhIMS.apk /system/priv-app/PhhIMS
 rem adb shell chmod 644 /system/priv-app/PhhIMS/PhhIMS.apk 
+rem adb reboot
 
 adb install -r PhhIMS.apk 
- 
-rem adb reboot

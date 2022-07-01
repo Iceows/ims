@@ -1,0 +1,71 @@
+--------- beginning of system
+--------- beginning of crash
+--------- beginning of kernel
+--------- beginning of main
+03-29 21:40:20.458 10193 10219 D PHH     : upd : Requesting IMS network.
+03-29 21:40:20.466 10193 10219 D PHH     : Found activeSubscription Id:1 displayName:SFR
+03-29 21:40:20.474 10193 10220 D PHH     : upd : Got IMS network !!
+03-29 21:40:20.475 10193 10220 D PHH     : upd : Got IMS network. Launching SIP
+03-29 21:40:20.475 10193 10220 D PHH     : Got IMS network. Launching SIP
+03-29 21:40:23.528 10193 10220 D PHH     : XCAP+WIFI transport available 101
+03-29 21:40:23.540 10193 10220 D PHH     :  caps = [ Transports: CELLULAR Capabilities: IMS&NOT_METERED&TRUSTED&NOT_VPN&VALIDATED&NOT_ROAMING&FOREGROUND&NOT_CONGESTED&NOT_SUSPENDED LinkUpBandwidth>=15000Kbps LinkDnBandwidth>=30000Kbps Specifier: <TelephonyNetworkSpecifier [mSubId = 1]> AdministratorUids: [] RequestorUid: -1 RequestorPackageName: null], lp = {InterfaceName: rmnet0 LinkAddresses: [ 2a02:8449:1f08:c448:e06d:a376:646a:a177/128 ] DnsAddresses: [ /2a02:8400::2:0,/2a02:8400::2:1 ] Domains: null MTU: 1500 TcpBufferSizes: 524288,1048576,2097152,262144,524288,1048576 Routes: [ ::/0 -> fe80::9791:898:2920:c853 rmnet0 mtu 0,2a02:8449:1f08:c448:e06d:a376:646a:a177/128 -> :: rmnet0 mtu 0 ]}
+03-29 21:40:23.541 10193 10220 D PHH     : realm: ims.mnc010.mcc208.3gppnetwork.org - user: 208103289682898@ims.mnc010.mcc208.3gppnetwork.org
+03-29 21:40:23.542 10193 10220 D PHH     : no Pcscf Servers!!
+03-29 21:40:23.605 10193 10220 D PHH     : My addr 2a02:8449:1f08:c448:e06d:a376:646a:a177 ; tag a29f9a647ae67; branch z9hG4bK_ed60c274cfda ; callId a3d99cd813c30
+03-29 21:40:23.605 10193 10220 D PHH     : upd : Connecting to SIP
+03-29 21:40:23.725 10193 10220 D PHH     : upd : Registering 1
+03-29 21:40:23.725 10193 10220 D PHH     : Socket opened!
+03-29 21:40:23.825 10193 10220 D PHH     : Sending REGISTER sip:ims.mnc010.mcc208.3gppnetwork.org SIP/2.0
+03-29 21:40:23.825 10193 10220 D PHH     : Via: SIP/2.0/TCP [2a02:8449:1f08:c448:e06d:a376:646a:a177]:49752;branch=z9hG4bK_ed60c274cfda;rport
+03-29 21:40:23.825 10193 10220 D PHH     : From: <sip:208103289682898@ims.mnc010.mcc208.3gppnetwork.org>;tag=a29f9a647ae67
+03-29 21:40:23.825 10193 10220 D PHH     : To: <sip:208103289682898@ims.mnc010.mcc208.3gppnetwork.org>
+03-29 21:40:23.825 10193 10220 D PHH     : Call-ID: a3d99cd813c30
+03-29 21:40:23.825 10193 10220 D PHH     : Max-Forwards: 70
+03-29 21:40:23.825 10193 10220 D PHH     : Expires: 600000
+03-29 21:40:23.825 10193 10220 D PHH     : User-Agent: Xiaomi__Android_12_MIUI220114
+03-29 21:40:23.825 10193 10220 D PHH     : Contact: <sip:208103289682898@[2a02:8449:1f08:c448:e06d:a376:646a:a177]:49752;transport=tcp>;expires=600000;+sip.instance="<urn:gsma:imei:86687905-321566-0>";+g.3gpp.icsi-ref="urn%3Aurn-7%3A3gpp-service.ims.icsi.mmtel";+g.3gpp.smsip;audio
+03-29 21:40:23.825 10193 10220 D PHH     : Supported: path, gruu, sec-agree
+03-29 21:40:23.825 10193 10220 D PHH     : Allow: INVITE, ACK, CANCEL, BYE, UPDATE, REFER, NOTIFY, MESSAGE, PRACK, OPTIONS
+03-29 21:40:23.825 10193 10220 D PHH     : Authorization: Digest username="208103289682898@ims.mnc010.mcc208.3gppnetwork.org",realm="ims.mnc010.mcc208.3gppnetwork.org",nonce="",uri="sip:ims.mnc010.mcc208.3gppnetwork.org",response="",algorithm=AKAv1-MD5
+03-29 21:40:23.825 10193 10220 D PHH     : Require: sec-agree
+03-29 21:40:23.825 10193 10220 D PHH     : Proxy-Require: sec-agree
+03-29 21:40:23.825 10193 10220 D PHH     : Security-Client: ipsec-3gpp;prot=esp;mod=trans;spi-c=584559385;spi-s=584559386;port-c=36968;port-s=36969;ealg=null;alg=hmac-sha-1-96
+03-29 21:40:23.825 10193 10220 D PHH     : CSeq: 1 REGISTER
+03-29 21:40:23.825 10193 10220 D PHH     : Content-Length: 0
+03-29 21:40:24.019 10193 10220 D PHH     : Received < SIP/2.0 401 Unauthorized
+03-29 21:40:24.019 10193 10220 D PHH     : Received < Call-ID: a3d99cd813c30
+03-29 21:40:24.020 10193 10220 D PHH     : Received < Via: SIP/2.0/TCP [2a02:8449:1f08:c448:e06d:a376:646a:a177]:49752;received=2a02:8449:1f08:c448:e06d:a376:646a:a177;branch=z9hG4bK_ed60c274cfda;rport=49752
+03-29 21:40:24.020 10193 10220 D PHH     : Received < To: <sip:208103289682898@ims.mnc010.mcc208.3gppnetwork.org>;tag=622a806d-624360a82c0ead1b
+03-29 21:40:24.020 10193 10220 D PHH     : Received < From: <sip:208103289682898@ims.mnc010.mcc208.3gppnetwork.org>;tag=a29f9a647ae67
+03-29 21:40:24.020 10193 10220 D PHH     : Received < CSeq: 1 REGISTER
+03-29 21:40:24.020 10193 10220 D PHH     : Received < Date: Tue, 29 Mar 2022 19:40:24 GMT
+03-29 21:40:24.020 10193 10220 D PHH     : Received < Security-Server: ipsec-3gpp; q=0.1; alg=hmac-sha-1-96; ealg=null; spi-c=36006633; spi-s=36006632; port-c=33038; port-s=6000
+03-29 21:40:24.020 10193 10220 D PHH     : Received < Server: Alcatel-Lucent-HPSS/3.0.3
+03-29 21:40:24.020 10193 10220 D PHH     : Received < WWW-Authenticate: Digest realm="sfr.fr",
+03-29 21:40:24.020 10193 10220 D PHH     : Received <    nonce="XMXbN71Ae7/TOil8ecmY61hyOk0GZgAAWlwjHhh9vNc=",
+03-29 21:40:24.020 10193 10220 D PHH     : Received <    opaque="ALU:QbkRBthOEgEQAkgFAQ0NWEYBBBpdGQIRQkRbHxoLVwknMG0qIDJ9fXlze3c1Yy42OG9gZw__",
+03-29 21:40:24.021 10193 10220 D PHH     : Received <    algorithm=AKAv1-MD5,
+03-29 21:40:24.021 10193 10220 D PHH     : Received <    qop="auth"
+03-29 21:40:24.021 10193 10220 D PHH     : Received < Content-Length: 0
+03-29 21:40:24.021 10193 10220 D PHH     : Received < 
+03-29 21:40:24.022 10193 10220 D PHH     : Socket closed!
+03-29 21:40:24.022 10193 10220 D PHH     : upd : Register 1 answered with SIP/2.0 401 Unauthorized
+03-29 21:40:24.102 10193 10220 D PHH     : Challenge B64 is EFzF2ze9QHu/0zopfHnJmOsQWHI6TQZmAABaXCMeGH281w==
+03-29 21:40:24.103 10193 10220 D PHH     : upd : Requesting AKA challenge
+03-29 21:40:24.256 10193 10220 D PHH     : resLen 8
+03-29 21:40:24.257 10193 10220 D PHH     : ckLen 16
+03-29 21:40:24.257 10193 10220 D PHH     : ikLen 16
+03-29 21:40:24.258 10193 10220 D PHH     : Got res [-10, 25, 28, 11, 30, 76, -50, -66] ck [49, -73, 26, -64, -51, -34, 89, 76, 85, -101, -41, -55, -33, 109, -20, -111] ik [-69, 25, 10, -119, 67, 73, -7, -8, -109, -84, 77, 64, -85, -96, -81, 45]
+03-29 21:40:24.296 10193 10220 D PHH     : "IPv6","2a02:8449:1f08:c448:e06d:a376:646a:a177","2a02:8400:20:225::5","584559385","AES-CBC [RFC3602]","0x31b71ac0cdde594c559bd7c9df6dec91","HMAC-SHA-1-96 [RFC2404]","0xbb190a894349f9f893ac4d40aba0af2d"
+03-29 21:40:24.296 10193 10220 D PHH     : "IPv6","2a02:8400:20:225::5","2a02:8449:1f08:c448:e06d:a376:646a:a177","36006632","AES-CBC [RFC3602]","0x31b71ac0cdde594c559bd7c9df6dec91","HMAC-SHA-1-96 [RFC2404]","0xbb190a894349f9f893ac4d40aba0af2d"
+03-29 21:40:24.299 10193 10220 D PHH     : Connecting SIP socket
+03-29 21:40:24.299 10193 10220 D PHH     : java.lang.IllegalArgumentException: Invalid key material keyLength: 128
+03-29 21:40:24.299 10193 10220 D PHH     : 	at android.net.IpSecAlgorithm.checkValidOrThrow(IpSecAlgorithm.java:247)
+03-29 21:40:24.299 10193 10220 D PHH     : 	at android.net.IpSecAlgorithm.<init>(IpSecAlgorithm.java:161)
+03-29 21:40:24.299 10193 10220 D PHH     : 	at me.phh.ims.MainActivity.launchIms(MainActivity.kt:602)
+03-29 21:40:24.299 10193 10220 D PHH     : 	at me.phh.ims.MainActivity$launchVolteNetwork$1.onAvailable(MainActivity.kt:1006)
+03-29 21:40:24.299 10193 10220 D PHH     : 	at android.net.ConnectivityManager$NetworkCallback.onAvailable(ConnectivityManager.java:3322)
+03-29 21:40:24.299 10193 10220 D PHH     : 	at android.net.ConnectivityManager$CallbackHandler.handleMessage(ConnectivityManager.java:3607)
+03-29 21:40:24.299 10193 10220 D PHH     : 	at android.os.Handler.dispatchMessage(Handler.java:106)
+03-29 21:40:24.299 10193 10220 D PHH     : 	at android.os.Looper.loop(Looper.java:223)
+03-29 21:40:24.299 10193 10220 D PHH     : 	at android.os.HandlerThread.run(HandlerThread.java:67)
